@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_orange"
+    tools:context=".ui.AddProductActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/add_product_edit_name_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="44dp"
+            android:layout_marginTop="72dp"
+            android:background="@drawable/text_field_shape_orange"
+            android:ems="10"
+            android:hint="Name"
+            android:textColor="@color/black"
+            android:textColorHint="#8E8E8E"
+            android:inputType="textPersonName"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_product_set_imageView" />
+
+        <EditText
+            android:id="@+id/add_product_edit_quantity_product"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/text_field_shape_orange"
+            android:ems="10"
+            android:hint="Quantity"
+            android:textColor="@color/black"
+            android:textColorHint="#8E8E8E"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/add_product_edit_name_product"
+            app:layout_constraintStart_toStartOf="@+id/add_product_edit_name_product"
+            app:layout_constraintTop_toBottomOf="@+id/add_product_edit_name_product" />
+
+
+        <EditText
+
+            android:id="@+id/add_product_edit_size_product"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Size"
+            android:background="@drawable/text_field_shape_orange"
+            android:textColor="@color/black"
+            android:textColorHint="#8E8E8E"
+            app:layout_constraintEnd_toEndOf="@+id/add_product_edit_quantity_product"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/add_product_edit_quantity_product"
+            app:layout_constraintTop_toBottomOf="@+id/add_product_edit_quantity_product"
+            tools:ignore="TextFields" />
+
+        <ImageView
+            android:id="@+id/add_product_set_imageView"
+            android:layout_width="211.49dp"
+            android:layout_height="166.94dp"
+            android:layout_marginTop="164dp"
+            android:src="@drawable/ic_baseline_person"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="72dp"
+            android:layout_marginHorizontal="44dp"
+            android:background="@drawable/shapebtnorang"
+            android:text="add"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.733"
+            app:layout_constraintTop_toBottomOf="@id/add_product_edit_size_product"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/add_product_imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/add_product_set_imageView"
+            app:layout_constraintTop_toTopOf="@+id/add_product_set_imageView"
+            app:srcCompat="@drawable/ic_baseline_add" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>

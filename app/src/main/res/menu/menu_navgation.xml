@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/product" android:title="Product" android:icon="@drawable/ic_baseline_category"/>
+    <item android:id="@+id/pos" android:title="POS" android:icon="@drawable/ic_baseline_customers"/>
+    <item android:id="@+id/order" android:title="Orders" android:icon="@drawable/ic_baseline_list_alt"/>
+</menu>

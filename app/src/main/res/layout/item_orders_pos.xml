@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="176dp"
+    android:elevation="24dp"
+    app:cardCornerRadius="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/item_orders_pos_imageView"
+            android:layout_width="88dp"
+            android:layout_height="72dp"
+
+            android:layout_marginStart="8dp"
+            android:src="@drawable/item"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_orders_pos_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:text="Name"
+            android:textSize="22sp"
+            android:textColor="@color/text_color"
+            app:layout_constraintStart_toEndOf="@+id/item_orders_pos_imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_orders_pos_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Quantity"
+            android:textSize="22sp"
+            android:textColor="@color/text_color"
+            app:layout_constraintStart_toStartOf="@+id/item_orders_pos_name"
+            app:layout_constraintTop_toBottomOf="@+id/item_orders_pos_name" />
+
+        <TextView
+            android:id="@+id/item_orders_pos_name_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="22sp"
+            android:textColor="@color/text_color"
+            android:text="Name Company"
+            app:layout_constraintStart_toStartOf="@+id/item_orders_pos_quantity"
+            app:layout_constraintTop_toBottomOf="@+id/item_orders_pos_quantity" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

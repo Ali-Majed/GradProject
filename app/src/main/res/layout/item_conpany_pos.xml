@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="128dp"
+    android:elevation="24dp"
+    app:cardCornerRadius="8dp"
+
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginBottom="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+        <ImageView
+            android:id="@+id/item_pos_company_imageView"
+            android:layout_width="88dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="32dp"
+            android:src="@drawable/item"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_pos_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:text="Name"
+            android:textColor="@color/text_color"
+            android:textSize="22sp"
+            app:layout_constraintStart_toEndOf="@+id/item_pos_company_imageView"
+            app:layout_constraintTop_toTopOf="@+id/item_pos_company_imageView" />
+
+        <TextView
+            android:id="@+id/item_pos_company_categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Place "
+            android:textColor="@color/text_color"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/item_pos_company_imageView"
+            app:layout_constraintStart_toStartOf="@+id/item_pos_company_name"
+            app:layout_constraintTop_toBottomOf="@+id/item_pos_company_name"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>
