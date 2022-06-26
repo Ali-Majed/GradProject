@@ -11,26 +11,17 @@ import android.widget.Toast;
 
 import com.example.gradproject.databinding.ActivityLoginPosBinding;
 import com.example.gradproject.modle.UserPOS;
-import com.example.gradproject.modle.UsersCompany;
 import com.example.gradproject.ui.Auth.RegisterActivity;
 import com.example.gradproject.ui.MainActivity;
 import com.example.gradproject.ui.PosNavigationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Objects;
 
 
 public class LoginPosActivity extends AppCompatActivity {
@@ -60,14 +51,16 @@ public class LoginPosActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if (usertype==1){
-                    Intent intent=new Intent(getApplicationContext(), RegisterPosActivity.class);
-                    startActivity(intent);
-
-                }else if (usertype==0){
-                    Intent intent=new Intent(getApplicationContext(), RegisterActivity
+                if (usertype==0){
+                    Intent intent1=new Intent(getApplicationContext(), RegisterActivity
                             .class);
-                    startActivity(intent);
+                    startActivity(intent1);
+
+                }else if (usertype==1){
+
+                    Intent intent2=new Intent(getApplicationContext(), RegisterPosActivity.class);
+
+                    startActivity(intent2);
                 }
             }
         });
@@ -99,17 +92,19 @@ public class LoginPosActivity extends AppCompatActivity {
 //                                                .collection("users_pos").document("usertypePos");
 
 //                                                        Log.d("uu",userPOS.getUsertypePos()+"");
-                                        if (usertype==1){
+                                        if (userPOS.getUsertypePos()==1){
                                             Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
-                                            Intent intent=new Intent(getApplicationContext(), PosNavigationActivity.class);
-                                            startActivity(intent);
+                                            Intent intentPos=new Intent(getApplicationContext(), PosNavigationActivity.class);
+                                            startActivity(intentPos);
 
-                                        }else if (usertype==0){
+                                        }else if (userPOS.getUsertypePos()==0){
                                             Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
-                                            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
-                                            startActivity(intent);
+                                            Intent intentCompany=new Intent(getApplicationContext(), MainActivity.class);
+                                            startActivity(intentCompany);
                                         }
                                         Log.d("uu",userPOS.getUsertypePos()+"");
+
+                                        Log.d("TAG", "onComplete: "+usertype);
 
 
                                     }else {

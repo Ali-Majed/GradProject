@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_orange"
+    android:id="@+id/container_view"
     tools:context=".ui.MainActivity">
+
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

@@ -1,5 +1,6 @@
 package com.example.gradproject.ui.AuthPOS;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.gradproject.R;
+import com.example.gradproject.callbacks.ProcessCallback;
 import com.example.gradproject.databinding.ActivityLoginBinding;
 import com.example.gradproject.databinding.ActivityLoginPosBinding;
 import com.example.gradproject.databinding.ActivityRegisterPosBinding;
@@ -32,6 +34,7 @@ public class RegisterPosActivity extends AppCompatActivity {
     private ActivityRegisterPosBinding binding;
     FirebaseAuth firebaseAuth;
     int usertype1;
+    ProcessCallback callback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +46,7 @@ public class RegisterPosActivity extends AppCompatActivity {
         Intent intent=getIntent();
         if (intent!=null){
             if (intent.hasExtra("usertype1")){
-
                 usertype1=intent.getIntExtra("usertype1",0);
-
             }
         }
 
@@ -64,6 +65,14 @@ public class RegisterPosActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
 
                                         binding.registerPosProgressBar.setVisibility(View.VISIBLE);
+//                                        if(firebaseAuth.getCurrentUser().isEmailVerified()){
+//                                            callback.onFinished(true, "Signed in successfully");
+//                                        }else{
+//                                            firebaseAuth.getCurrentUser().sendEmailVerification();
+//                                            firebaseAuth.signOut();
+//                                            callback.onFinished(false,"Login rejected, verify your email!");
+//                                        }
+
 
                                         Log.d("usertype",usertype1+"");
                                         String uid= Objects.requireNonNull(task.getResult().getUser()).getUid();
@@ -87,8 +96,7 @@ public class RegisterPosActivity extends AppCompatActivity {
                                                 if (task.isSuccessful()){
                                                     binding.registerPosProgressBar.setVisibility(View.GONE);
                                                     Toast.makeText(getApplicationContext(), "Success Created Account", Toast.LENGTH_SHORT).show();
-
-                                                }
+                                                    onBackPressed();                                                }
 
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {

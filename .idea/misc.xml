@@ -9,11 +9,13 @@
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/color_nav.xml" value="0.181" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_baseline_add.xml" value="0.181" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.191" />
+        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.181" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_baseline_business_24.xml" value="0.181" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_baseline_category.xml" value="0.181" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_baseline_customers.xml" value="0.191" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_baseline_list_alt.xml" value="0.191" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_baseline_person.xml" value="0.191" />
+        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_baseline_person2.xml" value="0.181" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_baseline_settings.xml" value="0.181" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_baseline_wysiwyg.xml" value="0.191" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.181" />
@@ -28,10 +30,14 @@
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_add_product.xml" value="0.2" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_change_password.xml" value="0.22530996152201796" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_choese.xml" value="0.22530996152201796" />
+        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_forget_password_chp.xml" value="0.264" />
+        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_forget_password_ve.xml" value="0.22530996152201796" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_login.xml" value="0.27447916666666666" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_login_pos.xml" value="0.264" />
-        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_main.xml" value="0.4066924066924067" />
+        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_main2.xml" value="0.10389055151774262" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_pos_navigation.xml" value="0.264" />
+        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_profile_company.xml" value="0.22530996152201796" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_register_pos.xml" value="0.22530996152201796" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_splash_screen.xml" value="0.22530996152201796" />

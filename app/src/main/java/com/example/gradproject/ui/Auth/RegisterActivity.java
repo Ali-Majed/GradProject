@@ -33,7 +33,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         firebaseAuth=FirebaseAuth.getInstance();
-        FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
 
         binding.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +40,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (CheckData()) {
 
-                    firebaseAuth.createUserWithEmailAndPassword(binding.registerEditTextEmail.getText().toString(),binding.registerEditTextPassword.getText().toString())
+                    firebaseAuth.createUserWithEmailAndPassword(binding.registerEditTextEmail.getText().toString()
+                                    ,binding.registerEditTextPassword.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -53,8 +53,8 @@ public class RegisterActivity extends AppCompatActivity {
                                                 ,binding.registerEditTextEmail.getText().toString()
                                                 ,binding.registerEditTextPassword.getText().toString()
                                                 ,binding.registerEditTextPlace.getText().toString()
-                                                ,binding.registerEditTextNumber.getText().toString());
-                                        DocumentReference documentReference= firebaseFirestore
+                                                ,binding.registerEditTextNumber.getText().toString(),0);
+                                        DocumentReference documentReference= FirebaseFirestore.getInstance()
                                                 .collection("userscompany").document();
 
 

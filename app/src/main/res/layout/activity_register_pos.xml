@@ -98,7 +98,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/text_field_shape"
             android:hint="Number"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:textColor="@color/black"
             android:textColorHint="#8E8E8E"
             app:layout_constraintEnd_toEndOf="@+id/register_edit_text_pos_password"

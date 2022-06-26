@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GradProject">
+
         <activity
             android:name=".ui.AuthPOS.LoginPosActivity"
             android:exported="false" />
@@ -40,7 +41,9 @@
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
-            android:exported="false" />
+            android:exported="false" >
+
+        </activity>
         <activity
             android:name=".ui.SplashScreenActivity"
             android:exported="true"

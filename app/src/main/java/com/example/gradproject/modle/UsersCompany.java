@@ -4,9 +4,13 @@ public class UsersCompany {
     private String id;
     private String nameCompany,distributorName,email,password,place,imageurl;
     private String number;
+    private int usertypePos;
+
+    private String idPos,namePos,emailPos,passwordPos,numberPos,placePos;
 
 
-    public UsersCompany(String id,String nameCompany, String distributorName, String email, String password, String place /*,String imageurl*/, String number) {
+
+    public UsersCompany(String id,String nameCompany, String distributorName, String email, String password, String place /*,String imageurl*/, String number,int usertypePos) {
         this.id=id;
         this.nameCompany = nameCompany;
         this.distributorName = distributorName;
@@ -15,6 +19,16 @@ public class UsersCompany {
         this.place = place;
 //        this.imageurl = imageurl;
         this.number = number;
+        this.usertypePos=usertypePos;
+    }
+
+
+    public int getUsertypePos() {
+        return usertypePos;
+    }
+
+    public void setUsertypePos(int usertypePos) {
+        this.usertypePos = usertypePos;
     }
 
     public UsersCompany() {

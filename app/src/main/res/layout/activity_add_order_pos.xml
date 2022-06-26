@@ -49,7 +49,7 @@
         android:hint="Quantity"
         android:textColor="@color/black"
         android:textColorHint="#8E8E8E"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:padding="16dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/add_order_pos_size"

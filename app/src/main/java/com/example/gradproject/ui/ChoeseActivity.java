@@ -28,7 +28,7 @@ public class ChoeseActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent=new Intent(getApplicationContext(),LoginPosActivity.class);
-                intent.putExtra("usertype",0);
+
                 startActivity(intent);
             }
         });
