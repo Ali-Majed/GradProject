@@ -8,52 +8,52 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 
 import com.example.gradproject.R;
 import com.example.gradproject.adapter.NavAdapter;
-import com.example.gradproject.fragment.SittingsFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.gradproject.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
-    ViewPager2 viewPager2;
-    BottomNavigationView navigationView;
+
     NavAdapter navAdapter;
-    ImageButton settings;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        viewPager2=findViewById(R.id.viewPager);
-        navigationView=findViewById(R.id.nav);
+        binding= ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
 
+        binding.imageButtonSitting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),SittingActivity.class);
+                startActivity(intent);
 
-
-
+            }
+        });
 
         navAdapter=new NavAdapter(this);
-        viewPager2.setAdapter(navAdapter);
+        binding.viewPager.setAdapter(navAdapter);
 
 
 
-        navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        binding.nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()){
                     case R.id.product:
-                        viewPager2.setCurrentItem(0);
+                        binding.viewPager.setCurrentItem(0);
                         break;
                     case R.id.pos:
-                        viewPager2.setCurrentItem(1);
+                        binding.viewPager.setCurrentItem(1);
                         break;
                     case R.id.order:
-                        viewPager2.setCurrentItem(2);
+                        binding.viewPager.setCurrentItem(2);
                         break;
 
 
@@ -65,21 +65,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+
+
+        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 switch (position){
                     case 0:
-                        navigationView.getMenu().findItem(R.id.product).setChecked(true);
+                        binding.nav.getMenu().findItem(R.id.product).setChecked(true);
                         break;
                     case 1:
-                        navigationView.getMenu().findItem(R.id.pos).setChecked(true);
+                        binding.nav.getMenu().findItem(R.id.pos).setChecked(true);
 
                         break;
 
                     case 2:
-                        navigationView.getMenu().findItem(R.id.order).setChecked(true);
+                        binding.nav.getMenu().findItem(R.id.order).setChecked(true);
                         break;
 
 

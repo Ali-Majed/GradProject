@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                 ,binding.registerEditTextPlace.getText().toString()
                                                 ,binding.registerEditTextNumber.getText().toString(),0);
                                         DocumentReference documentReference= FirebaseFirestore.getInstance()
-                                                .collection("userscompany").document();
+                                                .collection("users").document(firebaseAuth.getCurrentUser().getUid());
 
 
 

@@ -8,8 +8,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.gradproject.fragment.OrdersFragment;
 import com.example.gradproject.fragment.Pos_Fragment;
 import com.example.gradproject.fragment.ProductFragment;
-import com.example.gradproject.fragment.ProfileFragment;
-import com.example.gradproject.fragment.SittingsFragment;
 
 public class  NavAdapter extends FragmentStateAdapter {
 

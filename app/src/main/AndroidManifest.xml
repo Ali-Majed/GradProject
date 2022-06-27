@@ -3,6 +3,7 @@
     package="com.example.gradproject">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GradProject">
-
+        <activity
+            android:name=".ui.SittingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ProfileCompanyActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.AuthPOS.LoginPosActivity"
             android:exported="false" />
@@ -41,9 +47,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
-            android:exported="false" >
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ui.SplashScreenActivity"
             android:exported="true"

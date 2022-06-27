@@ -80,9 +80,9 @@ public class RegisterPosActivity extends AppCompatActivity {
                                                 ,binding.registerEditTextPosEmail.getText().toString()
                                                 ,binding.registerEditTextPosPassword.getText().toString()
                                                 ,binding.registerEditTextPosNumber.getText().toString()
-                                                ,binding.registerEditTextPosPlace.getText().toString(),usertype1);
+                                                ,binding.registerEditTextPosPlace.getText().toString(),1);
                                         DocumentReference documentReference= firebaseFirestore
-                                                .collection("users_pos").document();
+                                                .collection("users").document(firebaseAuth.getCurrentUser().getUid());
 
 
 

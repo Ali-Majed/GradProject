@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -31,6 +32,7 @@ public class LoginPosActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
     UserPOS userPOS=new UserPOS();
     int usertype;
+    int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,19 +94,35 @@ public class LoginPosActivity extends AppCompatActivity {
 //                                                .collection("users_pos").document("usertypePos");
 
 //                                                        Log.d("uu",userPOS.getUsertypePos()+"");
-                                        if (userPOS.getUsertypePos()==1){
-                                            Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
-                                            Intent intentPos=new Intent(getApplicationContext(), PosNavigationActivity.class);
-                                            startActivity(intentPos);
+                                        firebaseFirestore.collection("users").document(firebaseAuthPos.getCurrentUser().getUid())
+                                                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                                        }else if (userPOS.getUsertypePos()==0){
-                                            Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
-                                            Intent intentCompany=new Intent(getApplicationContext(), MainActivity.class);
-                                            startActivity(intentCompany);
-                                        }
+                                                if (task.isSuccessful()){
+                                                    Log.d("eee", "onComplete: "+task.getResult().getData());
+
+                                                    type= (int) task.getResult().getData().get("usertypePos");
+
+                                                    if (type==1){
+                                                        Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
+                                                        Intent intentPos=new Intent(getApplicationContext(), PosNavigationActivity.class);
+                                                        startActivity(intentPos);
+
+                                                    }else if (type==0){
+                                                        Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
+                                                        Intent intentCompany=new Intent(getApplicationContext(), MainActivity.class);
+                                                        startActivity(intentCompany);
+                                                    }
+
+                                                }
+
+                                            }
+                                        });
+
                                         Log.d("uu",userPOS.getUsertypePos()+"");
 
-                                        Log.d("TAG", "onComplete: "+usertype);
+                                        Log.d("TAGU", "onComplete: "+usertype);
 
 
                                     }else {
