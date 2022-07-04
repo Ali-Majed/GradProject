@@ -2,7 +2,7 @@ package com.example.gradproject.modle;
 
 public class UserPOS {
 
-    private String idPos,namePos,emailPos,passwordPos,numberPos,placePos;
+    private String idPos,namePos,emailPos,passwordPos,numberPos,placePos,imagePos;
     private int usertypePos;
 
 
@@ -26,6 +26,14 @@ public class UserPOS {
     }
 
     public UserPOS() {
+    }
+
+    public String getImagePos() {
+        return imagePos;
+    }
+
+    public void setImagePos(String imagePos) {
+        this.imagePos = imagePos;
     }
 
     public String getIdPos() {

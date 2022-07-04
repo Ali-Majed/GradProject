@@ -1,4 +1,4 @@
-package com.example.gradproject.adapter;
+package com.example.gradproject.adapter.recycler;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gradproject.R;
-import com.example.gradproject.modle.Orders;
+import com.example.gradproject.interfaces.ProductActionListener;
 import com.example.gradproject.modle.Product;
 import com.squareup.picasso.Picasso;
 
@@ -20,10 +20,17 @@ import java.util.ArrayList;
 public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProductAdapter.ProductViewHolder> {
     Context context;
     ArrayList<Product> productArrayList;
+    private ProductActionListener productActionListener;
 
     public RecyclerProductAdapter(Context context, ArrayList<Product> productArrayList) {
         this.context = context;
         this.productArrayList = productArrayList;
+    }
+
+    public RecyclerProductAdapter(Context context, ArrayList<Product> productArrayList, ProductActionListener productActionListener) {
+        this.context = context;
+        this.productArrayList = productArrayList;
+        this.productActionListener = productActionListener;
     }
 
     @NonNull
@@ -39,6 +46,7 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
         holder.sizeProduct.setText(product.getSize());
         holder.quantityProduct.setText(product.getQuantity());
         Picasso.get().load(product.getImage_product()).into(holder.imageViewProduct);
+
 
 
     }

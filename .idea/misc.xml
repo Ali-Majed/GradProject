@@ -37,6 +37,7 @@
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_main2.xml" value="0.10389055151774262" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_pos_navigation.xml" value="0.264" />
+        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_product_pos.xml" value="0.21376656690893545" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_profile_company.xml" value="0.22530996152201796" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/activity_register_pos.xml" value="0.22530996152201796" />
@@ -52,10 +53,11 @@
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/fragment_sittings.xml" value="0.264" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/item_categeries_pos.xml" value="0.35368421052631577" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/item_conpany_pos.xml" value="0.4" />
-        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/item_orders.xml" value="0.4" />
+        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/item_orders.xml" value="0.2" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/item_orders_pos.xml" value="0.2" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/item_pos.xml" value="0.27447916666666666" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/item_product.xml" value="0.27447916666666666" />
+        <entry key="..\:/Android_Studio/GradProject/app/src/main/res/layout/item_product_pos.xml" value="0.22445489525438223" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/menu/menu_navgation.xml" value="0.27447916666666666" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/menu/menu_pos_navigation.xml" value="0.22530996152201796" />
         <entry key="..\:/Android_Studio/GradProject/app/src/main/res/menu/pos_navigation.xml" value="0.22530996152201796" />

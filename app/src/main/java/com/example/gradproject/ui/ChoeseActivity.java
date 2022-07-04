@@ -10,7 +10,9 @@ import com.example.gradproject.R;
 import com.example.gradproject.databinding.ActivityChoeseBinding;
 import com.example.gradproject.modle.UserPOS;
 import com.example.gradproject.ui.Auth.LoginActivity;
+import com.example.gradproject.ui.Auth.RegisterActivity;
 import com.example.gradproject.ui.AuthPOS.LoginPosActivity;
+import com.example.gradproject.ui.AuthPOS.RegisterPosActivity;
 
 public class ChoeseActivity extends AppCompatActivity {
 
@@ -27,7 +29,7 @@ public class ChoeseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(getApplicationContext(),LoginPosActivity.class);
+                Intent intent=new Intent(getApplicationContext(), RegisterActivity.class);
 
                 startActivity(intent);
             }
@@ -37,7 +39,7 @@ public class ChoeseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(getApplicationContext(),LoginPosActivity.class);
+                Intent intent=new Intent(getApplicationContext(), RegisterPosActivity.class);
                 intent.putExtra("usertype",1);
                 startActivity(intent);
             }

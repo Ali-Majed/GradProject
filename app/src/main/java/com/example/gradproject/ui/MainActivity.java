@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.gradproject.R;
-import com.example.gradproject.adapter.NavAdapter;
+import com.example.gradproject.adapter.navigation.NavAdapter;
 import com.example.gradproject.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
 

@@ -33,9 +33,6 @@ public class RegisterPosActivity extends AppCompatActivity {
 
     private ActivityRegisterPosBinding binding;
     FirebaseAuth firebaseAuth;
-    int usertype1;
-    ProcessCallback callback;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,14 +40,8 @@ public class RegisterPosActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         firebaseAuth=FirebaseAuth.getInstance();
         FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
-        Intent intent=getIntent();
-        if (intent!=null){
-            if (intent.hasExtra("usertype1")){
-                usertype1=intent.getIntExtra("usertype1",0);
-            }
-        }
 
-        Log.d("usertype",usertype1+"");
+
         binding.registerPosButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,16 +56,10 @@ public class RegisterPosActivity extends AppCompatActivity {
                                     if (task.isSuccessful()) {
 
                                         binding.registerPosProgressBar.setVisibility(View.VISIBLE);
-//                                        if(firebaseAuth.getCurrentUser().isEmailVerified()){
-//                                            callback.onFinished(true, "Signed in successfully");
-//                                        }else{
-//                                            firebaseAuth.getCurrentUser().sendEmailVerification();
-//                                            firebaseAuth.signOut();
-//                                            callback.onFinished(false,"Login rejected, verify your email!");
-//                                        }
+//
 
 
-                                        Log.d("usertype",usertype1+"");
+
                                         String uid= Objects.requireNonNull(task.getResult().getUser()).getUid();
                                         UserPOS userPOS = new UserPOS(uid,binding.registerEditTextPosName.getText().toString()
                                                 ,binding.registerEditTextPosEmail.getText().toString()
@@ -96,7 +81,8 @@ public class RegisterPosActivity extends AppCompatActivity {
                                                 if (task.isSuccessful()){
                                                     binding.registerPosProgressBar.setVisibility(View.GONE);
                                                     Toast.makeText(getApplicationContext(), "Success Created Account", Toast.LENGTH_SHORT).show();
-                                                    onBackPressed();                                                }
+                                                    Intent intent=new Intent(getApplicationContext(),LoginPosActivity.class);
+                                                startActivity(intent);}
 
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {

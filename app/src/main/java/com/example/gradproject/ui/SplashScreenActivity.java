@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.example.gradproject.R;
 import com.example.gradproject.ui.Auth.LoginActivity;
+import com.example.gradproject.ui.AuthPOS.LoginPosActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -23,7 +24,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(), ChoeseActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginPosActivity.class);
                 startActivity(intent);
             }
         }, 3000);
@@ -35,5 +36,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         finish();
+    }
+    public boolean isLoggedIn() {
+        return firebaseAuth.getCurrentUser() != null;
     }
 }

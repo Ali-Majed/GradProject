@@ -78,8 +78,6 @@ public class RegisterActivity extends AppCompatActivity {
                                             public void onFailure(@NonNull Exception e) {
                                                 binding.registerProgressBar.setVisibility(View.GONE);
                                                 Log.e("reror",e.getMessage());
-
-
                                             }
                                         });
 

@@ -1,4 +1,4 @@
-package com.example.gradproject.adapter;
+package com.example.gradproject.adapter.navigation;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

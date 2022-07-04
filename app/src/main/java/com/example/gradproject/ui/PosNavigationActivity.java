@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.gradproject.R;
-import com.example.gradproject.adapter.NavPOSAdapter;
+import com.example.gradproject.adapter.navigation.NavPOSAdapter;
 import com.example.gradproject.databinding.ActivityPosNavigationBinding;
 import com.google.android.material.navigation.NavigationBarView;
 

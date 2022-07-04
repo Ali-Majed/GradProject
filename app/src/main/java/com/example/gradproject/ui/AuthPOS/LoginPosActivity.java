@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.gradproject.databinding.ActivityLoginPosBinding;
 import com.example.gradproject.modle.UserPOS;
 import com.example.gradproject.ui.Auth.RegisterActivity;
+import com.example.gradproject.ui.ChoeseActivity;
 import com.example.gradproject.ui.MainActivity;
 import com.example.gradproject.ui.PosNavigationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +23,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class LoginPosActivity extends AppCompatActivity {
@@ -31,39 +33,23 @@ public class LoginPosActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuthPos=FirebaseAuth.getInstance();
     FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
     UserPOS userPOS=new UserPOS();
-    int usertype;
-    int type;
+
+    long type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding =ActivityLoginPosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Intent intent=getIntent();
-        if (intent!=null){
-            if (intent.hasExtra("usertype")){
 
-                usertype=intent.getIntExtra("usertype",0);
-
-            }
-        }
-        Log.d("usertype",usertype+"");
         binding.loginNewAccountPos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                if (usertype==0){
-                    Intent intent1=new Intent(getApplicationContext(), RegisterActivity
-                            .class);
-                    startActivity(intent1);
-
-                }else if (usertype==1){
-
-                    Intent intent2=new Intent(getApplicationContext(), RegisterPosActivity.class);
+                    Intent intent2=new Intent(getApplicationContext(),ChoeseActivity.class);
 
                     startActivity(intent2);
-                }
+
             }
         });
 
@@ -96,33 +82,32 @@ public class LoginPosActivity extends AppCompatActivity {
 //                                                        Log.d("uu",userPOS.getUsertypePos()+"");
                                         firebaseFirestore.collection("users").document(firebaseAuthPos.getCurrentUser().getUid())
                                                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                                                if (task.isSuccessful()){
-                                                    Log.d("eee", "onComplete: "+task.getResult().getData());
+                                                        if (task.isSuccessful()){
+                                                            Log.d("eee", "onComplete: "+task.getResult().getData());
+                                                            Log.d("eee", "onComplete: "+firebaseAuthPos.getCurrentUser().getUid());
 
-                                                    type= (int) task.getResult().getData().get("usertypePos");
+                                                            type= (long) task.getResult().getData().get("usertypePos");
 
-                                                    if (type==1){
-                                                        Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
-                                                        Intent intentPos=new Intent(getApplicationContext(), PosNavigationActivity.class);
-                                                        startActivity(intentPos);
+                                                            if (type==1){
+                                                                Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
+                                                                Intent intentPos=new Intent(getApplicationContext(), PosNavigationActivity.class);
+                                                                startActivity(intentPos);
 
-                                                    }else if (type==0){
-                                                        Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
-                                                        Intent intentCompany=new Intent(getApplicationContext(), MainActivity.class);
-                                                        startActivity(intentCompany);
+                                                            }else if (type==0){
+                                                                Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
+                                                                Intent intentCompany=new Intent(getApplicationContext(), MainActivity.class);
+                                                                startActivity(intentCompany);
+                                                            }
+
+                                                        }
+
                                                     }
-
-                                                }
-
-                                            }
-                                        });
-
+                                                });
                                         Log.d("uu",userPOS.getUsertypePos()+"");
 
-                                        Log.d("TAGU", "onComplete: "+usertype);
 
 
                                     }else {

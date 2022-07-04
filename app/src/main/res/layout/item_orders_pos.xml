@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="176dp"
+    android:layout_height="200dp"
     android:elevation="24dp"
     app:cardCornerRadius="8dp"
     android:layout_marginStart="8dp"
@@ -44,7 +44,7 @@
             android:id="@+id/item_orders_pos_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="Quantity"
             android:textSize="22sp"
             android:textColor="@color/text_color"
@@ -55,13 +55,36 @@
             android:id="@+id/item_orders_pos_name_company"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:textSize="22sp"
             android:textColor="@color/text_color"
             android:text="Name Company"
             app:layout_constraintStart_toStartOf="@+id/item_orders_pos_quantity"
             app:layout_constraintTop_toBottomOf="@+id/item_orders_pos_quantity" />
 
+
+        <TextView
+            android:id="@+id/item_order_pos_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Size"
+            android:textColor="@color/text_color"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="@+id/item_orders_pos_name_company"
+            app:layout_constraintTop_toBottomOf="@+id/item_orders_pos_name_company" />
+
+        <TextView
+            android:id="@+id/item_order_pos_time_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:text="01/01 07/06"
+            android:textColor="@color/text_color"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
