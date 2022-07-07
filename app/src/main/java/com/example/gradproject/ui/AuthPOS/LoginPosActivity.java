@@ -13,6 +13,7 @@ import com.example.gradproject.databinding.ActivityLoginPosBinding;
 import com.example.gradproject.modle.UserPOS;
 import com.example.gradproject.ui.Auth.RegisterActivity;
 import com.example.gradproject.ui.ChoeseActivity;
+import com.example.gradproject.ui.ForgetPasswordActivityVE;
 import com.example.gradproject.ui.MainActivity;
 import com.example.gradproject.ui.PosNavigationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,43 +30,33 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginPosActivity extends AppCompatActivity {
     private ActivityLoginPosBinding binding;
-
     FirebaseAuth firebaseAuthPos=FirebaseAuth.getInstance();
     FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
-    UserPOS userPOS=new UserPOS();
-
     long type;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding =ActivityLoginPosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         binding.loginNewAccountPos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                     Intent intent2=new Intent(getApplicationContext(),ChoeseActivity.class);
-
                     startActivity(intent2);
-
             }
         });
 
+        binding.forgetPasswordPos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ForgetPasswordActivityVE.class));
+            }
+        });
 
         binding.loginButtonPos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
-
                 if (CheckData()){
-
-
-
-
                     binding.loginProgressBarPos.setVisibility(View.VISIBLE);
                     firebaseAuthPos.signInWithEmailAndPassword(binding.loginEmailPosEditText.getText().toString()
                                     , binding.loginPasswordPosEditText.getText().toString())
@@ -75,89 +66,52 @@ public class LoginPosActivity extends AppCompatActivity {
 
                                     if (task.isSuccessful()){
                                         binding.loginProgressBarPos.setVisibility(View.GONE);
-//                                        String uid=task.getResult().getUser().getUid();
-//                                        DocumentReference documentReference= firebaseFirestore
-//                                                .collection("users_pos").document("usertypePos");
-
-//                                                        Log.d("uu",userPOS.getUsertypePos()+"");
                                         firebaseFirestore.collection("users").document(firebaseAuthPos.getCurrentUser().getUid())
                                                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
                                                         if (task.isSuccessful()){
                                                             Log.d("eee", "onComplete: "+task.getResult().getData());
                                                             Log.d("eee", "onComplete: "+firebaseAuthPos.getCurrentUser().getUid());
-
                                                             type= (long) task.getResult().getData().get("usertypePos");
-
                                                             if (type==1){
                                                                 Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
                                                                 Intent intentPos=new Intent(getApplicationContext(), PosNavigationActivity.class);
                                                                 startActivity(intentPos);
-
                                                             }else if (type==0){
                                                                 Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
                                                                 Intent intentCompany=new Intent(getApplicationContext(), MainActivity.class);
+                                                                intentCompany.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                                                                 startActivity(intentCompany);
+
+//                                                                finish();
                                                             }
-
                                                         }
-
                                                     }
                                                 });
-                                        Log.d("uu",userPOS.getUsertypePos()+"");
-
-
-
                                     }else {
                                         Toast.makeText(getApplicationContext(), "فشل تسجيل الدخول", Toast.LENGTH_SHORT).show();
-
                                     }
-
-
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     binding.loginProgressBarPos.setVisibility(View.GONE);
-
                                     Log.d("ttt", e.getMessage());
                                 }
                             });
-
-
-
                 }
-
-
-
-
             }
         });
-
-
-
-
     }
 
     private boolean CheckData() {
-
         if ( !binding.loginEmailPosEditText.getText().toString().isEmpty()
                 &&!binding.loginPasswordPosEditText.getText().toString().isEmpty()
         ) {
-
             return true;
-
         }
-
         Snackbar.make(binding.getRoot(), "Enter required data", Snackbar.LENGTH_SHORT).show();
-
         return false;
     }
-
-
-
-
-
 }

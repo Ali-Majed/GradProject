@@ -7,7 +7,7 @@ public class UserPOS {
 
 
 
-    public UserPOS(String idPos, String namePos, String emailPos, String passwordPos, String numberPos, String placePos,int usertypePos) {
+    public UserPOS(String idPos, String namePos, String emailPos, String passwordPos, String numberPos, String placePos,int usertypePos,String imagePos) {
         this.idPos = idPos;
         this.namePos = namePos;
         this.emailPos = emailPos;
@@ -15,6 +15,7 @@ public class UserPOS {
         this.numberPos = numberPos;
         this.placePos = placePos;
         this.usertypePos=usertypePos;
+        this.imagePos=imagePos;
     }
 
     public int getUsertypePos() {

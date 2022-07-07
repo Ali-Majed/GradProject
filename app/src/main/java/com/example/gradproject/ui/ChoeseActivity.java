@@ -6,13 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.gradproject.R;
 import com.example.gradproject.databinding.ActivityChoeseBinding;
-import com.example.gradproject.modle.UserPOS;
-import com.example.gradproject.ui.Auth.LoginActivity;
 import com.example.gradproject.ui.Auth.RegisterActivity;
-import com.example.gradproject.ui.AuthPOS.LoginPosActivity;
 import com.example.gradproject.ui.AuthPOS.RegisterPosActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ChoeseActivity extends AppCompatActivity {
 
@@ -23,6 +20,7 @@ public class ChoeseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding =ActivityChoeseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
 
         binding.choeseCompanyButton.setOnClickListener(new View.OnClickListener() {

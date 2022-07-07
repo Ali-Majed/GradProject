@@ -29,36 +29,26 @@ import com.google.firebase.storage.UploadTask;
 import java.util.Objects;
 
 public class AddProductActivity extends AppCompatActivity {
-
     private ActivityAddProductBinding binding;
-    FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
     private static final int REQUEST_PICK_PHOTO=100;
     private Uri imageUri;
     private String photoUri;
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityAddProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         binding.addProductBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (CheckData()){
                     binding.addProductProgressBar.setVisibility(View.VISIBLE);
-
-
-
                     StorageReference storageReference= FirebaseStorage.getInstance().getReference()
                             .child(System.currentTimeMillis()+"."+getFileExtension(imageUri));
-                    storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    storageReference.putFile(imageUri)
+                            .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-
                             if (task.isSuccessful()){
                               task.getResult().getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
@@ -71,7 +61,6 @@ public class AddProductActivity extends AppCompatActivity {
                                                 ,binding.addProductEditSizeProduct.getText().toString()
                                                 , binding.addProductEditQuantityProduct.getText().toString()
                                                 ,photoUri,uid);
-
                                         DocumentReference documentReference= FirebaseFirestore.getInstance()
                                                 .collection("product").document();
                                         product.setId_product(documentReference.getId());
@@ -79,86 +68,53 @@ public class AddProductActivity extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()){
-
-
-
-
                                                     binding.addProductProgressBar.setVisibility(View.GONE);
                                                     Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
                                                 }else {
                                                     binding.addProductProgressBar.setVisibility(View.GONE);
-
                                                     Toast.makeText(getApplicationContext(), "Failure ", Toast.LENGTH_SHORT).show();
-
                                                 }
-
-
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 binding.addProductProgressBar.setVisibility(View.GONE);
-
                                                 Log.e("error_product",e.getMessage());
-
                                             }
                                         });
-
                                     }
                                 });
                                 Log.d("TAG",photoUri+"");
                             }
-
                         }
                     });
                     Log.d("TAG",photoUri+"");
-
-
-
                 }
                 Log.d("img",imageUri+"");
-
-
             }
         });
-
-
         binding.addProductImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectPhoto();
             }
         });
-
-
-
-
-
     }
-
     private boolean CheckData() {
 
         if ( !binding.addProductEditNameProduct.getText().toString().isEmpty()
                 &&!binding.addProductEditQuantityProduct.getText().toString().isEmpty()
                 &&!binding.addProductEditSizeProduct.getText().toString().isEmpty()
         ) {
-
             return true;
-
         }
-
         Snackbar.make(binding.getRoot(), "Enter required data", Snackbar.LENGTH_SHORT).show();
-
         return false;
     }
-
-
     private String getFileExtension(Uri itemUri) {
         return
                 MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(itemUri));
     }
-
-
     public void selectPhoto() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);

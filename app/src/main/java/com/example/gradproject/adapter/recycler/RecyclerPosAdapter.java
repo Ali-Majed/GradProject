@@ -8,18 +8,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gradproject.databinding.ItemPosBinding;
+import com.example.gradproject.modle.Product;
 import com.example.gradproject.modle.UserPOS;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerPosAdapter extends RecyclerView.Adapter<RecyclerPosAdapter.PosViewHolder> {
 
     private Context context;
-    private ArrayList<UserPOS> posArrayList;
+    private List<UserPOS> posArrayList;
 
-    public RecyclerPosAdapter(Context context, ArrayList<UserPOS> posArrayList) {
+    public RecyclerPosAdapter(Context context,List<UserPOS> posArrayList) {
         this.context = context;
         this.posArrayList = posArrayList;
     }
@@ -35,7 +38,12 @@ public class RecyclerPosAdapter extends RecyclerView.Adapter<RecyclerPosAdapter.
         UserPOS userPOS=posArrayList.get(position);
         holder.itemPosBinding.itemNamePos.setText(userPOS.getNamePos());
         holder.itemPosBinding.itemPosPlace.setText(userPOS.getPlacePos());
-        Picasso.get().load(userPOS.getImagePos()).into(holder.itemPosBinding.itemPosImageView);
+        Glide.with(context).load(userPOS.getImagePos()).into(holder.itemPosBinding.itemPosImageView);
+    }
+
+    public void filterList(List<UserPOS> userPOSList){
+        posArrayList=userPOSList;
+        notifyDataSetChanged();
     }
 
     @Override

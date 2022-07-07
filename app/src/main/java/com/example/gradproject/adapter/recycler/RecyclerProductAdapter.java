@@ -10,24 +10,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gradproject.R;
 import com.example.gradproject.interfaces.ProductActionListener;
 import com.example.gradproject.modle.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProductAdapter.ProductViewHolder> {
     Context context;
-    ArrayList<Product> productArrayList;
+   List<Product> productArrayList;
     private ProductActionListener productActionListener;
 
-    public RecyclerProductAdapter(Context context, ArrayList<Product> productArrayList) {
+    public RecyclerProductAdapter(Context context, List<Product> productArrayList) {
         this.context = context;
         this.productArrayList = productArrayList;
     }
 
-    public RecyclerProductAdapter(Context context, ArrayList<Product> productArrayList, ProductActionListener productActionListener) {
+    public RecyclerProductAdapter(Context context, List<Product> productArrayList, ProductActionListener productActionListener) {
         this.context = context;
         this.productArrayList = productArrayList;
         this.productActionListener = productActionListener;
@@ -39,13 +41,18 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
         return new ProductViewHolder(LayoutInflater.from(context).inflate(R.layout.item_product,parent,false));
     }
 
+
+    public void filterList(List<Product> productList){
+        productArrayList=productList;
+        notifyDataSetChanged();
+    }
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product=productArrayList.get(position);
         holder.nameProduct.setText(product.getName());
         holder.sizeProduct.setText(product.getSize());
         holder.quantityProduct.setText(product.getQuantity());
-        Picasso.get().load(product.getImage_product()).into(holder.imageViewProduct);
+        Glide.with(context).load(product.getImage_product()).into(holder.imageViewProduct);
 
 
 

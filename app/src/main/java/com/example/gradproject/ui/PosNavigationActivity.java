@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.gradproject.R;
 import com.example.gradproject.adapter.navigation.NavPOSAdapter;
@@ -20,6 +22,12 @@ ActivityPosNavigationBinding binding;
         binding=ActivityPosNavigationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.imageButtonSittingPos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),SittingActivity.class));
+            }
+        });
 
         NavPOSAdapter navPOSAdapter=new NavPOSAdapter(this);
         binding.viewPager.setAdapter(navPOSAdapter);

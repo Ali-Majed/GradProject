@@ -4,12 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ProfileCompanyActivity"
-    android:background="@color/background_orange">
-
-
+    android:background="@color/background_orange"
+    tools:context=".ui.ProfilePosActivity">
     <ImageView
-        android:id="@+id/imageView_company"
+        android:id="@+id/imageView_pos_profile"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_marginTop="132dp"
@@ -17,6 +15,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_person2" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="24dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/edit" />
 
     <ImageButton
         android:id="@+id/imageButton_profile_back"
@@ -30,18 +39,18 @@
         app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
 
     <TextView
-        android:id="@+id/profile_company_name"
+        android:id="@+id/profile_pos_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Company Name"
         android:textColor="@color/text_color"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_company"
-        app:layout_constraintStart_toStartOf="@+id/imageView_company"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_company" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView_pos_profile"
+        app:layout_constraintStart_toStartOf="@+id/imageView_pos_profile"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_pos_profile" />
 
     <TextView
-        android:id="@+id/profile_company_email"
+        android:id="@+id/profile_pos_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -54,26 +63,26 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/profile_company_phone"
+        android:id="@+id/profile_pos_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:text="0592662363"
         android:textColor="@color/text_color"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/profile_company_email"
-        app:layout_constraintTop_toBottomOf="@+id/profile_company_email" />
+        app:layout_constraintStart_toStartOf="@+id/profile_pos_email"
+        app:layout_constraintTop_toBottomOf="@+id/profile_pos_email" />
 
     <TextView
-        android:id="@+id/profile_company_place"
+        android:id="@+id/profile_pos_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:text="Gaza"
         android:textColor="@color/text_color"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/profile_company_phone"
-        app:layout_constraintTop_toBottomOf="@+id/profile_company_phone" />
+        app:layout_constraintStart_toStartOf="@+id/profile_pos_phone"
+        app:layout_constraintTop_toBottomOf="@+id/profile_pos_phone" />
 
     <ImageView
         android:id="@+id/imageView9"
@@ -82,7 +91,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_company_name"
+        app:layout_constraintTop_toBottomOf="@+id/profile_pos_name"
         app:srcCompat="@drawable/email_profile" />
 
     <ImageView

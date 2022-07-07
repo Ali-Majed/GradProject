@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.example.gradproject.adapter.recycler.RecyclerCompanyAdapter;
 import com.example.gradproject.databinding.FragmentCompanyPosBinding;
 import com.example.gradproject.interfaces.CompanyActionListener;
+import com.example.gradproject.modle.Product;
 import com.example.gradproject.modle.UsersCompany;
 import com.example.gradproject.ui.ProductPosActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,17 +27,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CompanyPosFragment extends Fragment {
-
-
     private FragmentCompanyPosBinding binding;
     ArrayList<UsersCompany> usersCompanies=new ArrayList<>();
     RecyclerCompanyAdapter recyclerCompanyAdapter;
     FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,7 +64,6 @@ public class CompanyPosFragment extends Fragment {
                         }
                     }
                 });
-
         recyclerCompanyAdapter=new RecyclerCompanyAdapter(requireContext(), usersCompanies, new CompanyActionListener() {
             @Override
             public void onCompanyActionListener(String id,String company) {
@@ -76,8 +74,28 @@ public class CompanyPosFragment extends Fragment {
 
             }
         });
-
-
         binding.recyclerCompanyPos.setAdapter(recyclerCompanyAdapter);
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                binding.searchView.clearFocus();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filter(s);
+                return true;
+            }
+        });
+    }
+    private void filter(String s) {
+        List<UsersCompany> usersCompanyList=new ArrayList<>();
+        for (UsersCompany usersCompany:usersCompanies){
+            if (usersCompany.getNameCompany().toLowerCase().contains(s.toLowerCase())){
+                usersCompanyList.add(usersCompany);
+            }
+        }
+        recyclerCompanyAdapter.filterList(usersCompanyList);
     }
 }

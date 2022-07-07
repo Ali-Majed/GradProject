@@ -13,9 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GradProject">
         <activity
+            android:name=".ui.ProfilePosActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ProductPosActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.SittingActivity"
             android:exported="false" />
@@ -32,6 +34,12 @@
             android:name=".ui.AddOrderPosActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.ForgetPasswordActivityVE"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ForgetPasswordActivityCHP"
+            android:exported="false" />
+        <activity
             android:name=".ui.PosNavigationActivity"
             android:exported="false" />
         <activity
@@ -42,9 +50,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.ChoeseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.Auth.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".ui.Auth.RegisterActivity"

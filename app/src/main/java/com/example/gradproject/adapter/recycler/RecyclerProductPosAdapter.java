@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gradproject.databinding.ItemProductPosBinding;
 import com.example.gradproject.interfaces.ProductActionListener;
 import com.example.gradproject.modle.Product;
@@ -36,7 +37,7 @@ public class RecyclerProductPosAdapter extends RecyclerView.Adapter<RecyclerProd
     public void onBindViewHolder(@NonNull ProductPosViewHolder holder, int position) {
         Product product=productArrayList.get(position);
         holder.itemProductPosBinding.itemProductPosName.setText(product.getName());
-        Picasso.get().load(product.getImage_product()).into(holder.itemProductPosBinding.itemProductPosImageView);
+        Glide.with(context).load(product.getImage_product()).into(holder.itemProductPosBinding.itemProductPosImageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

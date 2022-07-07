@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.example.gradproject.R;
 import com.example.gradproject.adapter.recycler.RecyclerPosAdapter;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Pos_Fragment extends Fragment {
@@ -69,6 +71,29 @@ private FirebaseFirestore firebaseFirestore;
         adapter=new RecyclerPosAdapter(requireContext(),arrayList);
         binding.recyclerPos.setAdapter(adapter);
 
+        binding.searchViewPos.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                binding.searchViewPos.clearFocus();
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filter(s);
+                return true;
+            }
+        });
+
+
+    }
+    private void filter(String s) {
+        List<UserPOS> userPOSList=new ArrayList<>();
+        for (UserPOS usersCompany:arrayList){
+            if (usersCompany.getNamePos().toLowerCase().contains(s.toLowerCase())){
+                userPOSList.add(usersCompany);
+            }
+        }
+        adapter.filterList(userPOSList);
     }
 }

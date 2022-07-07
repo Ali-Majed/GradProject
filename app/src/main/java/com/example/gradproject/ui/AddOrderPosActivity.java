@@ -31,7 +31,6 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class AddOrderPosActivity extends AppCompatActivity {
-
     private ActivityAddOrderPosBinding binding;
     private Intent intent;
     private String name,quantity,size,id,namePos,time,idCompany,nameCompany;
@@ -42,84 +41,67 @@ public class AddOrderPosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityAddOrderPosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         firebaseFirestore=FirebaseFirestore.getInstance();
-
         intent=getIntent();
         if (intent!=null){
             if (intent.hasExtra("productId")&&intent.hasExtra("productName")&&
                     intent.hasExtra("productImage_product")&&intent.hasExtra("companyId")
             &&intent.hasExtra("companyName")){
-
-
                 id=intent.getStringExtra("productId");
                 name=intent.getStringExtra("productName");
                 nameCompany=intent.getStringExtra("companyName");
                 img=Uri.parse(intent.getStringExtra("productImage_product"));
                 idCompany=intent.getStringExtra("companyId");
-
-
             }
         }
 
         Picasso.get().load(img).into(binding.imageView7);
         binding.addOrderPosName.setText(name);
-
         binding.addOrderPosBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (CheckData()){
                     binding.addProductPosProgressBar.setVisibility(View.VISIBLE);
-
-
                     firebaseFirestore.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()){
-
-                                        time=getDateFormat(getCurrentDate());
-                                        quantity=binding.addOrderPosQuantity.getText().toString();
-                                        size=binding.addOrderPosSize.getText().toString();
-                                        namePos= (String) task.getResult().getData().get("namePos");
-                                        String uid= Objects.requireNonNull(FirebaseAuth.getInstance()
+                                    if (task.isSuccessful()) {
+                                        time = getDateFormat(getCurrentDate());
+                                        quantity = binding.addOrderPosQuantity.getText().toString();
+                                        size = binding.addOrderPosSize.getText().toString();
+                                        namePos = (String) task.getResult().getData().get("namePos");
+                                        String uid = Objects.requireNonNull(FirebaseAuth.getInstance()
                                                 .getCurrentUser().getUid());
-                                        Log.d("TAG",uid);
-                                        Orders orders=new Orders(namePos,name,quantity,size,img+"",uid,time,idCompany,nameCompany);
-
-                                        DocumentReference documentReference= FirebaseFirestore.getInstance()
+                                        Log.d("TAG", uid);
+                                        Orders orders = new Orders(namePos, name, quantity, size, img + "", uid, time, idCompany, nameCompany);
+                                        DocumentReference documentReference = FirebaseFirestore.getInstance()
                                                 .collection("order").document();
                                         orders.setIdOrder(documentReference.getId());
                                         documentReference.set(orders).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()){
+                                                if (task.isSuccessful()) {
                                                     binding.addProductPosProgressBar.setVisibility(View.GONE);
                                                     Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
-                                                }else {
+                                                } else {
                                                     binding.addProductPosProgressBar.setVisibility(View.GONE);
-
                                                     Toast.makeText(getApplicationContext(), "Failure ", Toast.LENGTH_SHORT).show();
-
                                                 }
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 binding.addProductPosProgressBar.setVisibility(View.GONE);
-
-                                                Log.e("error_productPos",e.getMessage());
+                                                Log.e("error_productPos", e.getMessage());
                                             }
                                         });
-
                                     }
-
                                 }
                             });
                 }
             }
         });
-
     }
 
     public Date getCurrentDate(){
@@ -130,17 +112,12 @@ public class AddOrderPosActivity extends AppCompatActivity {
         return simpleDateFormat.format(date);
     }
     private boolean CheckData() {
-
         if ( !binding.addOrderPosSize.getText().toString().isEmpty()
                 &&!binding.addOrderPosQuantity.getText().toString().isEmpty()
         ) {
-
             return true;
-
         }
-
         Snackbar.make(binding.getRoot(), "Enter required data", Snackbar.LENGTH_SHORT).show();
-
         return false;
     }
 }

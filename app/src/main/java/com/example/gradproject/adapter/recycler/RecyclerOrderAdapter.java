@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gradproject.databinding.ItemOrdersBinding;
 import com.example.gradproject.modle.Orders;
 import com.squareup.picasso.Picasso;
@@ -39,7 +40,7 @@ public class RecyclerOrderAdapter extends RecyclerView.Adapter<RecyclerOrderAdap
         holder.itemOrdersBinding.itemOrderQuantity.setText(orders.getQuantity());
         holder.itemOrdersBinding.itemOrderSize.setText(orders.getSize());
         holder.itemOrdersBinding.itemOrderTimeProduct.setText(orders.getTime());
-        Picasso.get().load(orders.getImageOrder()).into(holder.itemOrdersBinding.imageViewOrder);
+        Glide.with(context).load(orders.getImageOrder()).into(holder.itemOrdersBinding.imageViewOrder);
 
 
 
