@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,80 +14,70 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import com.example.gradproject.R;
 import com.example.gradproject.adapter.recycler.RecyclerProductAdapter;
+import com.example.gradproject.databinding.FragmentProductBinding;
+import com.example.gradproject.interfaces.ProductActionListener;
+import com.example.gradproject.interfaces.callbacks.ListCallback;
+import com.example.gradproject.modle.FirestoreController;
 import com.example.gradproject.modle.Product;
 import com.example.gradproject.ui.AddProductActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.gradproject.ui.DatilesProductActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
 public class ProductFragment extends Fragment {
-FloatingActionButton fab;
-RecyclerView recyclerView;
-FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
-    ArrayList<Product> products=new ArrayList<>();
-Product product;
-    SearchView searchView;
+    FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
+    List<Product> products=new ArrayList<>();
+
+    FirestoreController firestoreController;
     RecyclerProductAdapter recyclerProductAdapter;
+    FragmentProductBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product, container, false);
+        binding=FragmentProductBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
+
+
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        fab = getView().findViewById(R.id.fab_product);
-        recyclerView = getView().findViewById(R.id.recycler_product);
-        searchView=getView().findViewById(R.id.searchView_product);
-        recyclerProductAdapter = new RecyclerProductAdapter(requireContext(), products);
-        recyclerView.setAdapter(recyclerProductAdapter);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+
+        recyclerProductAdapter = new RecyclerProductAdapter(requireContext(), products, new ProductActionListener() {
+            @Override
+            public void onProductActionListener(Product product) {
+                Intent intent=new Intent(requireContext(), DatilesProductActivity.class);
+                intent.putExtra("img",product.getImage_product());
+                intent.putExtra("name_product",product.getName());
+                intent.putExtra("size",product.getSize());
+                intent.putExtra("quantity",product.getQuantity());
+
+                startActivity(intent);
+
+            }
+        });
+        binding.recyclerProduct.setAdapter(recyclerProductAdapter);
+        binding.fabProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddProductActivity.class);
                 startActivity(intent);
             }
         });
-        product=new Product();
 
-        firebaseFirestore.collection("product").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot snapshot : task.getResult()) {
-                                Product product = snapshot.toObject(Product.class);
-                                if (Objects.requireNonNull(FirebaseAuth.getInstance()
-                                        .getCurrentUser()).getUid().equals(product.getUser_id())) {
-                                    Log.d("TAGuser", "onComplete: " + product.getUser_id());
-                                    product.setId_product(snapshot.getId());
-                                    products.add(product);
-                                }
-                                recyclerProductAdapter.notifyDataSetChanged();
-                            }
-                        }
-                    }
-                });
+        firestoreController=new FirestoreController();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.searchViewProduct.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                searchView.clearFocus();
+                binding.searchViewProduct.clearFocus();
 
                 return false;
             }
@@ -101,7 +90,13 @@ Product product;
         });
 
     }
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("start123456", "onStart: ");
+        readProduct();
+        Log.d("start123456", "onStart1: ");
+    }
     private void filter(String s) {
         List<Product> productList=new ArrayList<>();
         for (Product product:products){
@@ -110,5 +105,26 @@ Product product;
             }
         }
         recyclerProductAdapter.filterList(productList);
+    }
+
+    private void readProduct(){
+        firestoreController.readProduct(new ListCallback<Product>() {
+            @Override
+            public void onFinished(List<Product> list, boolean success) {
+                if (success){
+                    products.clear();
+                    products.addAll(list);
+                    Log.d("size", "onViewCreated: "+products.size());
+                    recyclerProductAdapter.notifyDataSetChanged();
+                    if (products.size()==0) {
+                        binding.textView2.setVisibility(View.VISIBLE);
+                    }else {
+                        binding.textView2.setVisibility(View.GONE
+                        );
+
+                    }
+                }
+            }
+        });
     }
 }

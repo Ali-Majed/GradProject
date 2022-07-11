@@ -56,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (CheckData()) {
+                    binding.registerProgressBar.setVisibility(View.VISIBLE);
 
                     firebaseAuth.createUserWithEmailAndPassword(binding.registerEditTextEmail.getText().toString()
                                     ,binding.registerEditTextPassword.getText().toString())
@@ -63,7 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        binding.registerProgressBar.setVisibility(View.VISIBLE);
 
                                         StorageReference storageReference= FirebaseStorage.getInstance().getReference()
                                                 .child(System.currentTimeMillis()+"."+getFileExtension(imageUri));
@@ -94,8 +94,10 @@ public class RegisterActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()){
                                                     binding.registerProgressBar.setVisibility(View.GONE);
-                                                    Toast.makeText(getApplicationContext(), "Success Created Account", Toast.LENGTH_SHORT).show();
-
+                                                    firebaseAuth.getCurrentUser().sendEmailVerification();
+                                                    firebaseAuth.signOut();
+                                                    Toast.makeText(getApplicationContext(), "Account created successfully, please verify your email", Toast.LENGTH_SHORT).show();                                                    Intent intent=new Intent(getApplicationContext(),LoginPosActivity.class);
+                                                    startActivity(intent);
 
                                                 }
                                             }

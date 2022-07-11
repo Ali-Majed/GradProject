@@ -148,6 +148,9 @@
             android:textColor="@color/white"
 
             android:textSize="18dp"
+            android:layout_marginBottom="100dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/register_edit_text_place"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="@+id/register_edit_text_place"

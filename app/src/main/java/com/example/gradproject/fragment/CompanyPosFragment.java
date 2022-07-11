@@ -17,6 +17,8 @@ import android.widget.SearchView;
 import com.example.gradproject.adapter.recycler.RecyclerCompanyAdapter;
 import com.example.gradproject.databinding.FragmentCompanyPosBinding;
 import com.example.gradproject.interfaces.CompanyActionListener;
+import com.example.gradproject.interfaces.callbacks.ListCallback;
+import com.example.gradproject.modle.FirestoreController;
 import com.example.gradproject.modle.Product;
 import com.example.gradproject.modle.UsersCompany;
 import com.example.gradproject.ui.ProductPosActivity;
@@ -34,7 +36,8 @@ public class CompanyPosFragment extends Fragment {
     private FragmentCompanyPosBinding binding;
     ArrayList<UsersCompany> usersCompanies=new ArrayList<>();
     RecyclerCompanyAdapter recyclerCompanyAdapter;
-    FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
+    private FirestoreController firestoreController;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,25 +48,8 @@ public class CompanyPosFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        firebaseFirestore.collection("users")
-                .whereEqualTo("usertypePos",0)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot snapshot : task.getResult()) {
-                                UsersCompany usersCompany = snapshot.toObject(UsersCompany.class);
-                                    Log.d("TAGuser", "onComplete: "+usersCompany.getId());
-                                    usersCompany.setId(snapshot.getId());
-                                    usersCompanies.add(usersCompany);
+        firestoreController=new FirestoreController();
 
-                                recyclerCompanyAdapter.notifyDataSetChanged();
-                            }
-                        }
-                    }
-                });
         recyclerCompanyAdapter=new RecyclerCompanyAdapter(requireContext(), usersCompanies, new CompanyActionListener() {
             @Override
             public void onCompanyActionListener(String id,String company) {
@@ -75,6 +61,8 @@ public class CompanyPosFragment extends Fragment {
             }
         });
         binding.recyclerCompanyPos.setAdapter(recyclerCompanyAdapter);
+
+
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -86,6 +74,23 @@ public class CompanyPosFragment extends Fragment {
             public boolean onQueryTextChange(String s) {
                 filter(s);
                 return true;
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        readCompanies();
+    }
+
+    private void readCompanies(){
+        firestoreController.readCompany(new ListCallback<UsersCompany>() {
+            @Override
+            public void onFinished(List<UsersCompany> list, boolean success) {
+                usersCompanies.clear();
+                usersCompanies.addAll(list);
+                recyclerCompanyAdapter.notifyDataSetChanged();
             }
         });
     }

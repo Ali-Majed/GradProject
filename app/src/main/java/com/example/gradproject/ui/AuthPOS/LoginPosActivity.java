@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.gradproject.databinding.ActivityLoginPosBinding;
+import com.example.gradproject.interfaces.callbacks.ProcessCallback;
 import com.example.gradproject.modle.UserPOS;
 import com.example.gradproject.ui.Auth.RegisterActivity;
 import com.example.gradproject.ui.ChoeseActivity;
@@ -33,6 +34,7 @@ public class LoginPosActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuthPos=FirebaseAuth.getInstance();
     FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
     long type;
+    ProcessCallback callback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,19 +75,28 @@ public class LoginPosActivity extends AppCompatActivity {
                                                         if (task.isSuccessful()){
                                                             Log.d("eee", "onComplete: "+task.getResult().getData());
                                                             Log.d("eee", "onComplete: "+firebaseAuthPos.getCurrentUser().getUid());
-                                                            type= (long) task.getResult().getData().get("usertypePos");
-                                                            if (type==1){
-                                                                Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
-                                                                Intent intentPos=new Intent(getApplicationContext(), PosNavigationActivity.class);
-                                                                startActivity(intentPos);
-                                                            }else if (type==0){
-                                                                Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
-                                                                Intent intentCompany=new Intent(getApplicationContext(), MainActivity.class);
-                                                                intentCompany.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                                startActivity(intentCompany);
+                                                            if(firebaseAuthPos.getCurrentUser().isEmailVerified()){
+                                                                type= (long) task.getResult().getData().get("usertypePos");
+                                                                if (type==1){
+                                                                    Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
+                                                                    Intent intentPos=new Intent(getApplicationContext(), PosNavigationActivity.class);
+                                                                    startActivity(intentPos);
+                                                                }
+                                                                else if (type==0){
+                                                                    Toast.makeText(getApplicationContext(), "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
+                                                                    Intent intentCompany=new Intent(getApplicationContext(), MainActivity.class);
+                                                                    intentCompany.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                    startActivity(intentCompany);
 
-//                                                                finish();
+                                                                }
+                                                                Toast.makeText(getApplicationContext(),"Signed in successfully",Toast.LENGTH_SHORT);
+
+                                                            }else{
+                                                                firebaseAuthPos.getCurrentUser().sendEmailVerification();
+                                                                firebaseAuthPos.signOut();
+                                                                Toast.makeText(getApplicationContext(),"Login rejected, verify your email!",Toast.LENGTH_SHORT);
                                                             }
+
                                                         }
                                                     }
                                                 });

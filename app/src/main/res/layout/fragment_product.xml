@@ -8,21 +8,19 @@
     tools:context=".fragment.ProductFragment">
 
 
-
     <SearchView
         android:id="@+id/searchView_product"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="96dp"
-        android:iconifiedByDefault="false"
-
-        android:backgroundTint="@color/white"
-        android:searchHintIcon="@color/black"
-        android:queryBackground="@android:color/transparent"
-        android:queryHint="Search name product"
+        android:layout_marginTop="80dp"
         android:background="@drawable/shape_search"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search name product"
+        android:searchHintIcon="@color/black"
+        android:textAlignment="center"
+        android:theme="@style/ThemeOverlay.SearchView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,5 +52,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Product Now"
+        android:textSize="32dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

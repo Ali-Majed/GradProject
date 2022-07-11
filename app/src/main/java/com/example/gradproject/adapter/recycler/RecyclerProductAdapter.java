@@ -13,21 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.gradproject.R;
 import com.example.gradproject.interfaces.ProductActionListener;
+import com.example.gradproject.interfaces.ProductPosActionListener;
 import com.example.gradproject.modle.Product;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProductAdapter.ProductViewHolder> {
     Context context;
    List<Product> productArrayList;
     private ProductActionListener productActionListener;
-
-    public RecyclerProductAdapter(Context context, List<Product> productArrayList) {
-        this.context = context;
-        this.productArrayList = productArrayList;
-    }
 
     public RecyclerProductAdapter(Context context, List<Product> productArrayList, ProductActionListener productActionListener) {
         this.context = context;
@@ -50,9 +44,14 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product=productArrayList.get(position);
         holder.nameProduct.setText(product.getName());
-        holder.sizeProduct.setText(product.getSize());
         holder.quantityProduct.setText(product.getQuantity());
         Glide.with(context).load(product.getImage_product()).into(holder.imageViewProduct);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                productActionListener.onProductActionListener(product);
+            }
+        });
 
 
 
@@ -65,14 +64,14 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nameProduct,sizeProduct,quantityProduct;
+        TextView nameProduct,quantityProduct;
         ImageView imageViewProduct;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
 
 
             nameProduct=itemView.findViewById(R.id.item_product_name);
-            sizeProduct=itemView.findViewById(R.id.item_product_size);
+
             quantityProduct=itemView.findViewById(R.id.item_product_quantity);
             imageViewProduct=itemView.findViewById(R.id.item_product_imageView);
 

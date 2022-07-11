@@ -26,6 +26,8 @@ import android.view.ViewGroup;
 import com.example.gradproject.R;
 import com.example.gradproject.adapter.recycler.RecyclerOrderAdapter;
 import com.example.gradproject.databinding.FragmentOrdersBinding;
+import com.example.gradproject.interfaces.callbacks.ListCallback;
+import com.example.gradproject.modle.FirestoreController;
 import com.example.gradproject.modle.Orders;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +38,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -44,9 +47,10 @@ public class OrdersFragment extends Fragment {
     private FragmentOrdersBinding binding;
     private ArrayList<Orders> ordersArrayList=new ArrayList<>();
     private RecyclerOrderAdapter recyclerOrderAdapter;
-    private FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
     public static final String CHANNEL_ID="channel_id";
-    Orders order ;
+
+    private FirestoreController firestoreController;
+    Orders order =new Orders();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,97 +62,59 @@ public class OrdersFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        firebaseFirestore.collection("order").orderBy("time", Query.Direction.DESCENDING).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            for (QueryDocumentSnapshot snapshot : task.getResult()) {
-                                 order = snapshot.toObject(Orders.class);
-                                if (Objects.requireNonNull(FirebaseAuth.getInstance()
-                                        .getCurrentUser()).getUid().equals(order.getIdCompany())){
-                                    Log.d("TAGuser", "onComplete: "+order.getIdCompany());
-                                    order.setIdOrder(snapshot.getId());
-                                    ordersArrayList.add(order);
-
-                                }
-
-                                recyclerOrderAdapter.notifyDataSetChanged();
-                            }
-
-                            sendNotification(order.getNamePos(),order.getNameProduct());
-                        }
-                    }
-                });
+        firestoreController=new FirestoreController();
+        Log.d("nameproduct", "onViewCreated: "+order.getNameProduct());
         recyclerOrderAdapter=new RecyclerOrderAdapter(requireContext(),ordersArrayList);
         binding.recyclerOrder.setAdapter(recyclerOrderAdapter);
     }
 
-    private void sendNotification(String name,String product) {
-        Intent intent = new Intent(requireContext(), OrdersFragment.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(requireContext(), 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(requireContext() , CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_baseline_notifications_24)
-                        .setContentTitle(name)
-                        .setContentText(product)
-                        .setAutoCancel(true)
-                        .setSound(defaultSoundUri)
-                        .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager =
-                (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
-                    "Channel human readable title",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+    @Override
+    public void onStart() {
+        super.onStart();
+        readOrders();
     }
 
+    private void readOrders(){
+        firestoreController.readOrder(requireContext(), new ListCallback<Orders>() {
+            @Override
+            public void onFinished(List<Orders> list, boolean success) {
+                ordersArrayList.clear();
+                ordersArrayList.addAll(list);
+//                sendNotification(order.getNamePos(),order.getNameProduct());
 
-//    public void ShowNotification(String name,String product){
-//        Intent intent=new Intent(requireContext(),OrdersFragment.class);
-//        PendingIntent pendingIntent=PendingIntent.getActivity(requireContext(),0,intent,0);
-//
-//        NotificationCompat.Builder noBuilder=new NotificationCompat.Builder(requireContext(),CHANNEL_ID);
-//        noBuilder.setSmallIcon(com.example.gradproject.R.drawable.ic_baseline_notifications_24)
-//                .setContentTitle(name)
-//                .setContentIntent(pendingIntent)
-//
-//
-//                .setContentText(product);
-//
-//        NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(requireContext());
-//
-//        NotificationManager notificationManager = (NotificationManager) requireContext().getSystemService(requireContext().NOTIFICATION_SERVICE);
-//
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                recyclerOrderAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+//    private void sendNotification(String name,String product) {
+//        Intent intent = new Intent(requireContext(), OrdersFragment.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(requireContext(), 0 /* Request code */, intent,
+//                PendingIntent.FLAG_ONE_SHOT);
 //
 //
+//        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//        NotificationCompat.Builder notificationBuilder =
+//                new NotificationCompat.Builder(requireContext() , CHANNEL_ID)
+//                        .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+//                        .setContentTitle(name)
+//                        .setContentText(product)
+//                        .setAutoCancel(true)
+//                        .setSound(defaultSoundUri)
+//                        .setContentIntent(pendingIntent);
 //
-//            NotificationChannel notificationChannel=
-//                    new NotificationChannel(CHANNEL_ID,"Name", NotificationManager.IMPORTANCE_DEFAULT);
+//        NotificationManager notificationManager =
+//                (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
 //
-//            notificationManager.createNotificationChannel(notificationChannel);
-//
-//
+//        // Since android Oreo notification channel is needed.
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+//                    "Channel human readable title",
+//                    NotificationManager.IMPORTANCE_DEFAULT);
+//            notificationManager.createNotificationChannel(channel);
 //        }
 //
-//        notificationManagerCompat.notify(15,noBuilder.build());
-//
-//
-//
+//        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
 //    }
 }

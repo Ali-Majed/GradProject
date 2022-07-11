@@ -4,12 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.gradproject.databinding.ItemPosBinding;
+import com.example.gradproject.interfaces.PosActionListener;
 import com.example.gradproject.modle.Product;
 import com.example.gradproject.modle.UserPOS;
 import com.squareup.picasso.Picasso;
@@ -21,8 +23,9 @@ public class RecyclerPosAdapter extends RecyclerView.Adapter<RecyclerPosAdapter.
 
     private Context context;
     private List<UserPOS> posArrayList;
+    private PosActionListener posActionListener;
 
-    public RecyclerPosAdapter(Context context,List<UserPOS> posArrayList) {
+    public RecyclerPosAdapter(Context context, List<UserPOS> posArrayList) {
         this.context = context;
         this.posArrayList = posArrayList;
     }
@@ -39,6 +42,20 @@ public class RecyclerPosAdapter extends RecyclerView.Adapter<RecyclerPosAdapter.
         holder.itemPosBinding.itemNamePos.setText(userPOS.getNamePos());
         holder.itemPosBinding.itemPosPlace.setText(userPOS.getPlacePos());
         Glide.with(context).load(userPOS.getImagePos()).into(holder.itemPosBinding.itemPosImageView);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context,"Name :"+userPOS.getNamePos()
+                        +"\n" +
+                        "Email :"+userPOS.getEmailPos()+
+                        "\n" +
+                        "Place :"+userPOS.getPlacePos()
+                        +"\n" +
+                        "Number :"+userPOS.getNumberPos(),Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     public void filterList(List<UserPOS> userPOSList){

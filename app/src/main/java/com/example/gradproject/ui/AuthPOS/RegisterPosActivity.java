@@ -52,6 +52,8 @@ public class RegisterPosActivity extends AppCompatActivity {
         binding.registerPosButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.registerPosProgressBar.setVisibility(View.VISIBLE);
+
                 if (CheckData()) {
                     firebaseAuth.createUserWithEmailAndPassword(binding.registerEditTextPosEmail.getText().toString()
                                     ,binding.registerEditTextPosPassword.getText().toString())
@@ -59,7 +61,6 @@ public class RegisterPosActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        binding.registerPosProgressBar.setVisibility(View.VISIBLE);
 
                                         StorageReference storageReference= FirebaseStorage.getInstance().getReference()
                                                 .child(System.currentTimeMillis()+"."+getFileExtension(imageUri));
@@ -87,9 +88,12 @@ public class RegisterPosActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()){
                                                     binding.registerPosProgressBar.setVisibility(View.GONE);
-                                                    Toast.makeText(getApplicationContext(), "Success Created Account", Toast.LENGTH_SHORT).show();
+                                                    firebaseAuth.getCurrentUser().sendEmailVerification();
+                                                    firebaseAuth.signOut();
+                                                    Toast.makeText(getApplicationContext(), "Account created successfully, please verify your email", Toast.LENGTH_SHORT).show();
                                                     Intent intent=new Intent(getApplicationContext(),LoginPosActivity.class);
-                                                    startActivity(intent);}
+                                                    startActivity(intent);
+                                                }
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override

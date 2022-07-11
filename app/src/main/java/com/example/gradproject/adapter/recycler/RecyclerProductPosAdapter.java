@@ -10,21 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.gradproject.databinding.ItemProductPosBinding;
-import com.example.gradproject.interfaces.ProductActionListener;
+import com.example.gradproject.interfaces.ProductPosActionListener;
 import com.example.gradproject.modle.Product;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class RecyclerProductPosAdapter extends RecyclerView.Adapter<RecyclerProductPosAdapter.ProductPosViewHolder> {
     private Context context;
     private ArrayList<Product> productArrayList;
-    private ProductActionListener productActionListener;
+    private ProductPosActionListener productActionListener;
 
-    public RecyclerProductPosAdapter(Context context, ArrayList<Product> productArrayList, ProductActionListener productActionListener) {
+    public RecyclerProductPosAdapter(Context context, ArrayList<Product> productArrayList, ProductPosActionListener productPosActionListener) {
         this.context = context;
         this.productArrayList = productArrayList;
-        this.productActionListener = productActionListener;
+        this.productActionListener = productPosActionListener;
     }
 
     @NonNull
@@ -41,7 +40,7 @@ public class RecyclerProductPosAdapter extends RecyclerView.Adapter<RecyclerProd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                productActionListener.onProductActionListener(product);
+                productActionListener.onProductPosActionListener(product);
             }
         });
 

@@ -76,23 +76,47 @@ public class SittingActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                                 String email=(String) task.getResult().getData().get("email");
+                                String emailPos=(String) task.getResult().getData().get("emailPos");
                                 Log.d("email123", "onComplete: "+email);
+                                Log.d("email123", "onComplete: "+emailPos);
+                                type= (long) task.getResult().getData().get("usertypePos");
+                                if (type==0){
+                                    firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
 
-                                firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()){
+                                                Log.d("emailvrefy", "onComplete: "+task.getResult());
+                                                Toast.makeText(getApplicationContext(),"Please Check You Email to Reset Password",Toast.LENGTH_LONG).show();
 
-                                        if (task.isSuccessful()){
-                                            Log.d("emailvrefy", "onComplete: "+task.getResult());
-                                            Toast.makeText(getApplicationContext(),"Please Check You Email to Reset Password",Toast.LENGTH_LONG).show();
-
-                                        }else {
-                                            Toast.makeText(getApplicationContext(),"Failed to Reset Password",Toast.LENGTH_LONG).show();
-                                            Intent intent=new Intent(getApplicationContext(),LoginPosActivity.class);
-                                            startActivity(intent);
+                                            }else {
+                                                Toast.makeText(getApplicationContext(),"Failed to Reset Password",Toast.LENGTH_LONG).show();
+                                                Intent intent=new Intent(getApplicationContext(),LoginPosActivity.class);
+                                                startActivity(intent);
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+
+                                }
+                                else if (type==1){
+                                    firebaseAuth.sendPasswordResetEmail(emailPos).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                            if (task.isSuccessful()){
+                                                Log.d("emailvrefy", "onComplete: "+task.getResult());
+                                                Toast.makeText(getApplicationContext(),"Please Check You Email to Reset Password",Toast.LENGTH_LONG).show();
+
+                                            }else {
+                                                Toast.makeText(getApplicationContext(),"Failed to Reset Password",Toast.LENGTH_LONG).show();
+                                                Intent intent=new Intent(getApplicationContext(),LoginPosActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        }
+                                    });
+
+
+                                }
 
 
                             }

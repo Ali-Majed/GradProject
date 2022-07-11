@@ -37,7 +37,7 @@ public class RecyclerOrderPosAdapter extends RecyclerView.Adapter<RecyclerOrderP
 
         holder.itemOrdersPosBinding.itemOrdersPosName.setText(orders.getNameProduct());
         holder.itemOrdersPosBinding.itemOrdersPosQuantity.setText(orders.getQuantity());
-        holder.itemOrdersPosBinding.itemOrderPosSize.setText(orders.getSize());
+
         holder.itemOrdersPosBinding.itemOrdersPosNameCompany.setText(orders.getNameCompany());
         holder.itemOrdersPosBinding.itemOrderPosTimeProduct.setText(orders.getTime());
         Glide.with(context).load(orders.getImageOrder()).into(holder.itemOrdersPosBinding.itemOrdersPosImageView);

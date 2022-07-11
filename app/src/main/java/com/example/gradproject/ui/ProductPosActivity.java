@@ -10,7 +10,7 @@ import android.util.Log;
 
 import com.example.gradproject.adapter.recycler.RecyclerProductPosAdapter;
 import com.example.gradproject.databinding.ActivityProductPosBinding;
-import com.example.gradproject.interfaces.ProductActionListener;
+import com.example.gradproject.interfaces.ProductPosActionListener;
 import com.example.gradproject.modle.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,16 +46,16 @@ public class ProductPosActivity extends AppCompatActivity {
         }
 
 
-        recyclerProductAdapter=new RecyclerProductPosAdapter(getApplicationContext(), products, new ProductActionListener() {
+        recyclerProductAdapter=new RecyclerProductPosAdapter(getApplicationContext(), products, new ProductPosActionListener() {
             @Override
-            public void onProductActionListener(Product product) {
-                        Intent intent=new Intent(getApplicationContext(),AddOrderPosActivity.class);
-        intent.putExtra("productId",product.getId_product());
-        intent.putExtra("productName",product.getName());
-        intent.putExtra("companyId",CompanyId);
-        intent.putExtra("companyName",company);
-        intent.putExtra("productImage_product",product.getImage_product());
-        startActivity(intent);
+            public void onProductPosActionListener(Product product) {
+                Intent intent=new Intent(getApplicationContext(),AddOrderPosActivity.class);
+                intent.putExtra("productId",product.getId_product());
+                intent.putExtra("productName",product.getName());
+                intent.putExtra("companyId",CompanyId);
+                intent.putExtra("companyName",company);
+                intent.putExtra("productImage_product",product.getImage_product());
+                startActivity(intent);
             }
         });
         binding.productPosRecycler.setAdapter(recyclerProductAdapter);

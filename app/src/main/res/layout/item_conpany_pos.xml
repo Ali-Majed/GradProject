@@ -20,37 +20,63 @@
             android:id="@+id/item_pos_company_imageView"
             android:layout_width="88dp"
             android:layout_height="73dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="8dp"
             android:src="@drawable/item"
             app:civ_border_color="#FF000000"
             app:civ_border_width="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.509" />
 
         <TextView
             android:id="@+id/item_pos_company_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="4dp"
-            android:text="Name"
+            android:layout_marginStart="8dp"
+            android:text="Techno"
             android:textColor="@color/text_color"
-            android:textSize="22sp"
-            app:layout_constraintStart_toEndOf="@+id/item_pos_company_imageView"
-            app:layout_constraintTop_toTopOf="@+id/item_pos_company_imageView" />
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView5"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/textView5"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/item_pos_company_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Place "
+            android:layout_marginStart="8dp"
+            android:text="Gaza "
             android:textColor="@color/text_color"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="@+id/item_pos_company_imageView"
-            app:layout_constraintStart_toStartOf="@+id/item_pos_company_name"
-            app:layout_constraintTop_toBottomOf="@+id/item_pos_company_name"
-            app:layout_constraintVertical_bias="1.0" />
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/textView6"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Name :"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/item_pos_company_imageView"
+            app:layout_constraintTop_toTopOf="@+id/item_pos_company_imageView" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Place :"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

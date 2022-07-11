@@ -84,6 +84,7 @@
             android:background="@drawable/shapebtnorang"
             android:text="add"
             android:textColor="@color/white"
+            android:layout_marginBottom="140dp"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -16,6 +16,9 @@ import android.widget.SearchView;
 import com.example.gradproject.R;
 import com.example.gradproject.adapter.recycler.RecyclerPosAdapter;
 import com.example.gradproject.databinding.FragmentPosBinding;
+import com.example.gradproject.interfaces.PosActionListener;
+import com.example.gradproject.interfaces.callbacks.ListCallback;
+import com.example.gradproject.modle.FirestoreController;
 import com.example.gradproject.modle.UserPOS;
 import com.example.gradproject.modle.UsersCompany;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +36,7 @@ private FragmentPosBinding binding;
 ArrayList<UserPOS> arrayList=new ArrayList<>();
 private RecyclerPosAdapter adapter;
 private FirebaseFirestore firebaseFirestore;
+private FirestoreController firestoreController;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,30 +50,14 @@ private FirebaseFirestore firebaseFirestore;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        firebaseFirestore=FirebaseFirestore.getInstance();
 
-        firebaseFirestore.collection("users")
-                .whereEqualTo("usertypePos",1)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot snapshot : task.getResult()) {
-                                UserPOS userPOS = snapshot.toObject(UserPOS.class);
-                                Log.d("TAGuser", "onComplete: "+userPOS.getIdPos());
-                                userPOS.setIdPos(snapshot.getId());
-                                arrayList.add(userPOS);
+        firestoreController=new FirestoreController();
 
-                                adapter.notifyDataSetChanged();
-                            }
-                        }
-                    }
-                });
 
-        adapter=new RecyclerPosAdapter(requireContext(),arrayList);
+
+        adapter=new RecyclerPosAdapter(requireContext(), arrayList);
         binding.recyclerPos.setAdapter(adapter);
+
 
         binding.searchViewPos.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -86,6 +74,24 @@ private FirebaseFirestore firebaseFirestore;
         });
 
 
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        readPos();
+    }
+
+    private void readPos(){
+        firestoreController.readPos (new ListCallback<UserPOS>() {
+            @Override
+            public void onFinished(List<UserPOS> list, boolean success) {
+                arrayList.clear();
+                arrayList.addAll(list);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
     private void filter(String s) {
         List<UserPOS> userPOSList=new ArrayList<>();
