@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.gradproject.adapter.recycler.RecyclerProductPosAdapter;
 import com.example.gradproject.databinding.ActivityProductPosBinding;
@@ -72,6 +73,12 @@ public class ProductPosActivity extends AppCompatActivity {
                                     Log.d("TAGuser", "onComplete: " + product.getUser_id());
                                     product.setId_product(snapshot.getId());
                                     products.add(product);
+                                }
+                                if (products.size()==0) {
+                                    binding.textView2.setVisibility(View.VISIBLE);
+                                }else {
+                                    binding.textView2.setVisibility(View.GONE);
+
                                 }
                                 recyclerProductAdapter.notifyDataSetChanged();
                             }

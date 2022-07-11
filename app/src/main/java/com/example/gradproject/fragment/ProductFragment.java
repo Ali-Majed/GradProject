@@ -119,8 +119,7 @@ public class ProductFragment extends Fragment {
                     if (products.size()==0) {
                         binding.textView2.setVisibility(View.VISIBLE);
                     }else {
-                        binding.textView2.setVisibility(View.GONE
-                        );
+                        binding.textView2.setVisibility(View.GONE);
 
                     }
                 }

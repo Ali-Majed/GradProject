@@ -7,7 +7,17 @@
     android:background="@color/background_orange"
     tools:context=".fragment.CompanyPosFragment">
 
-
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Company Now"
+        android:textSize="32dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_company_pos"
         android:layout_width="0dp"
@@ -30,7 +40,7 @@
         android:layout_marginTop="80dp"
         android:background="@drawable/shape_search"
         android:iconifiedByDefault="false"
-        android:queryHint="Search to Pos"
+        android:queryHint="Search to Company"
         android:textAlignment="center"
         android:theme="@style/ThemeOverlay.SearchView"
         app:layout_constraintEnd_toEndOf="parent"

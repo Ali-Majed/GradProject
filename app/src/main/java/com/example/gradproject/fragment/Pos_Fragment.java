@@ -90,6 +90,12 @@ private FirestoreController firestoreController;
                 arrayList.clear();
                 arrayList.addAll(list);
                 adapter.notifyDataSetChanged();
+                if (arrayList.size()==0) {
+                    binding.textView2.setVisibility(View.VISIBLE);
+                }else {
+                    binding.textView2.setVisibility(View.GONE);
+
+                }
             }
         });
     }

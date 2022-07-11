@@ -58,6 +58,12 @@ private FragmentOrderPosBinding binding;
                     ordersArrayList.clear();
                     ordersArrayList.addAll(list);
                     recyclerOrderAdapter.notifyDataSetChanged();
+                    if (ordersArrayList.size()==0) {
+                        binding.textView2.setVisibility(View.VISIBLE);
+                    }else {
+                        binding.textView2.setVisibility(View.GONE);
+
+                    }
                 }
             }
         });

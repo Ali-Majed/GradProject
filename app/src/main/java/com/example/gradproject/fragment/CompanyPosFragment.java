@@ -91,6 +91,12 @@ public class CompanyPosFragment extends Fragment {
                 usersCompanies.clear();
                 usersCompanies.addAll(list);
                 recyclerCompanyAdapter.notifyDataSetChanged();
+                if (usersCompanies.size()==0) {
+                    binding.textView2.setVisibility(View.VISIBLE);
+                }else {
+                    binding.textView2.setVisibility(View.GONE);
+
+                }
             }
         });
     }

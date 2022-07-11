@@ -83,6 +83,12 @@ public class OrdersFragment extends Fragment {
 //                sendNotification(order.getNamePos(),order.getNameProduct());
 
                 recyclerOrderAdapter.notifyDataSetChanged();
+                if (ordersArrayList.size()==0) {
+                    binding.textView2.setVisibility(View.VISIBLE);
+                }else {
+                    binding.textView2.setVisibility(View.GONE);
+
+                }
             }
         });
     }
